@@ -1,0 +1,30 @@
+created:
+    - database/factories/ZonaFactory.php
+    - database/factories/DistritoFactory.php
+    - database/factories/AreaFactory.php
+    - database/factories/SectorFactory.php
+    - database/factories/GrupoFactory.php
+    - database/factories/UsuarioFactory.php
+    - database/factories/ReporteFactory.php
+    - database/migrations/2021_02_02_175443_create_zonas_table.php
+    - database/migrations/2021_02_02_175444_create_distritos_table.php
+    - database/migrations/2021_02_02_175445_create_areas_table.php
+    - database/migrations/2021_02_02_175446_create_sectors_table.php
+    - database/migrations/2021_02_02_175447_create_grupos_table.php
+    - database/migrations/2021_02_02_175448_create_usuarios_table.php
+    - database/migrations/2021_02_02_175449_create_reportes_table.php
+    - app/Zona.php
+    - app/Distrito.php
+    - app/Area.php
+    - app/Sector.php
+    - app/Grupo.php
+    - app/Usuario.php
+    - app/Reporte.php
+models:
+    Zona: { codigo_supervisor: 'string unique', supervisor: string, telefono: 'string nullable', email: 'string nullable', relationships: { hasMany: Distrito } }
+    Distrito: { codigo_distrito: 'string unique', supervisor: string, telefono: 'string nullable', email: 'string nullable', zona_id: 'id foreign', relationships: { hasMany: 'Area,', belongsTo: Zona } }
+    Area: { codigo_area: 'string,', supervisor: 'string,', telefono: 'string nullable,', email: 'string nullable,', distrito_id: 'id foreign,', relationships: { hasMany: 'Sector,', belongsTo: Distrito } }
+    Sector: { codigo_sector: string, supervisor: 'string,', telefono: 'string nullable,', email: 'string nullable,', area_id: 'id foreign,', relationships: { hasMany: 'Grupo,', belongsTo: Area } }
+    Grupo: { codigo_grupo: 'string unique', lider: 'string,', telefono: 'string nullable,', email: 'string nullable,', sector_id: 'id foreign,', relationships: { belongsTo: Sector, hasMany: Reporte } }
+    Usuario: { codigo_usuarios: string, cargo: string, rol: string, nombre: string, correo: string, password: string }
+    Reporte: { grupo_id: 'id foreign,', codigo_grupo: string, asistencia_adultos: 'integer,', invitados_inconversos: 'integer,', conversiones: 'integer,', integrados_ccdl: 'integer,', integrados_biblico: 'integer,', fecha: date, relationships: { belongsTo: Grupo } }

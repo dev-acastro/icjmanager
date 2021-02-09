@@ -1,0 +1,77 @@
+models:
+  Zona:
+    codigo_supervisor: string unique
+    supervisor: string
+    telefono: string nullable
+    email: string nullable
+    relationships:
+      hasMany: Distrito
+
+  Distrito:
+    codigo_distrito: string unique
+    supervisor: string
+    telefono: string nullable
+    email: string nullable
+    zona_id: id foreign
+    relationships:
+      hasMany: Area,
+      belongsTo: Zona
+
+  Area:
+    codigo_area: string,
+    supervisor: string,
+    telefono: string nullable,
+    email: string nullable,
+    distrito_id: id foreign,
+    relationships:
+      hasMany: Sector,
+      belongsTo: Distrito
+
+  Sector:
+    codigo_sector: string
+    supervisor: string,
+    telefono: string nullable,
+    email: string nullable,
+    area_id: id foreign,
+    relationships:
+      hasMany: Grupo,
+      belongsTo: Area
+
+  Grupo:
+    codigo_grupo: string unique
+    lider: string,
+    telefono: string nullable,
+    email: string nullable,
+    sector_id: id foreign,
+    relationships:
+      belongsTo: Sector
+      hasMany: Reporte
+
+  Usuario:
+    codigo_usuarios: string
+    cargo: string
+    rol: string
+    nombre: string
+    correo: string
+    password: string
+
+  Reporte:
+    grupo_id: id foreign,
+    codigo_grupo: string
+    asistencia_adultos: integer,
+    invitados_inconversos: integer,
+    conversiones: integer,
+    integrados_ccdl: integer,
+    integrados_biblico: integer,
+    fecha: date
+    relationships:
+      belongsTo: Grupo
+
+
+
+
+
+
+
+
+
