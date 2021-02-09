@@ -28,7 +28,7 @@ class ReporteController extends Controller
         $codigo = Grupo::where('codigo_grupo', $request->grupo)->get();
 
 
-       $message = "Grupo no Encontrado, por favor ingresar el codigo de grupo correctamente";
+       $message = "error";
 
 
 

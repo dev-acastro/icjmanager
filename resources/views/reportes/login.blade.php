@@ -7,7 +7,7 @@
                 @if($message == 'success')
 
                 <script>
-                    swal ( "Exito" ,  "{{$message}}" ,  "success" )
+                    swal ( "Exito" ,  "Reporte Guardado con Exito" ,  "success" )
 
                 </script>
 
@@ -15,7 +15,7 @@
 
                 @if($message == 'error')
                         <script>
-                            swal ( "Error" ,  "{{$message}}" ,  "error" )
+                            swal ( "Error" ,  "Grupo No Encontrado, por favor ingresar el codigo correctamente" ,  "error" )
 
                         </script>
                 @endif
