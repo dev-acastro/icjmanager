@@ -14,10 +14,11 @@ use App\Http\Controllers\Front\ReporteController;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
      return redirect ('/reporte');
-});
+});*/
 
+Route::redirect('/', '/reporte');
 
 Route::resource('reporte', ReporteController::class);
 
