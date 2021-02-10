@@ -15,7 +15,7 @@ use App\Http\Controllers\Front\ReporteController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+     return redirect ('/reporte');
 });
 
 
