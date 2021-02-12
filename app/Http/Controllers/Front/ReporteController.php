@@ -71,7 +71,7 @@ class ReporteController extends Controller
             'codigo_grupo' => $request->input('codigo_grupo'),
             'fecha' => $request->input('fecha'),
             'asistencia_adultos'=> $request->input('adultos'),
-            'invitados_inconversos' => $request->input('adultos'),
+            'invitados_inconversos' => $request->input('inconversos'),
             'conversiones' => $request->input('conversiones'),
             'integrados_ccdl' => $request->input('ccdl'),
             'integrados_biblico' => $request->input('ibbaj')

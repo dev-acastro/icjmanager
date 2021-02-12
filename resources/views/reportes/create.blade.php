@@ -4,6 +4,37 @@
 
 @section('content')
 
+
+
+    @if($id[0]->lider == '')
+        <script>
+            swal("Ingresar el Nombre del Lider de Grupo:", {
+                title : "Se requiere Nombre de Lider",
+                content: "input",
+                icon: "info",
+                button :{
+                text: "OK",
+                value: true,
+                visible: true,
+                className: "",
+                closeModal: true,
+
+                }
+
+            })
+                .then((value) => {
+
+                var nameElement = getElementById('ReportesForm');
+                nameElement.html('<h1>hOLA</h1>')
+                    swal(`You typed: ${value}`);
+                });
+
+
+
+        </script>
+
+    @endif
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -11,7 +42,7 @@
                     <div class="card-header text-center" >Codigo de Grupo  - <span>{{$id[0]->codigo_grupo}}</span>  <p>Lider: <span>{{$id[0]->lider}}</span></p></div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{route('reporte.store')}}" id="ReservasForm">
+                        <form method="POST" action="{{route('reporte.store')}}" id="ReportesForm">
                             @csrf
 
 

@@ -7,6 +7,8 @@
                 @if($message == 'success')
 
                 <script>
+
+
                     swal ( "Exito" ,  "Reporte Guardado con Exito" ,  "success" )
 
                 </script>
