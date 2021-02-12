@@ -6,7 +6,7 @@
 
 
 
-    @if($id[0]->lider == '')
+    @if(false/*$id[0]->lider == ''*/)
         <script>
             swal("Ingresar el Nombre del Lider de Grupo:", {
                 title : "Se requiere Nombre de Lider",

@@ -27,6 +27,10 @@ class ReporteController extends Controller
 
         $codigo = Grupo::where('codigo_grupo', $request->grupo)->get();
 
+        $reporte = Reporte::where('fecha', 'YEARWEEK(NOW())');
+
+        echo $reporte;
+
 
        $message = "error";
 
