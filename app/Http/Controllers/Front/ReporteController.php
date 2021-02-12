@@ -29,7 +29,7 @@ class ReporteController extends Controller
 
         $reporte = Reporte::where('fecha', 'YEARWEEK(NOW())');
 
-        echo $reporte;
+        //var_dump($reporte) ;
 
 
        $message = "error";
