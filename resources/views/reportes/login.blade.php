@@ -4,6 +4,15 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
 
+
+                @if($message == 'entregado')
+
+                    <script>
+                        swal ( "Denegado" ,  "El reporte de esta semana ya se ha entregado" ,  "warning" )
+                    </script>
+
+                @endif
+
                 @if($message == 'success')
 
                 <script>

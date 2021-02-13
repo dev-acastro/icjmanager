@@ -7,6 +7,7 @@ use App\Models\Grupo;
 use App\Models\Reporte;
 use Illuminate\Http\Request;
 use Prologue\Alerts\Facades\Alert;
+use Illuminate\Support\Facades\DB;
 
 class ReporteController extends Controller
 {
@@ -23,13 +24,9 @@ class ReporteController extends Controller
 
     public function login(Request $request){
 
-        $codigo = [];
-
-        $codigo = Grupo::where('codigo_grupo', $request->grupo)->get();
-
-        $reporte = Reporte::where('fecha', 'YEARWEEK(NOW())');
-
-        //var_dump($reporte) ;
+        $codigo_grupo = $request->grupo;
+        $codigo = Grupo::where('codigo_grupo', $codigo_grupo)->get();
+        $reporte = DB::table('reportes')->where('codigo_grupo', $codigo_grupo)->whereRaw('YEARWEEK(fecha) = YEARWEEK(NOW())')->get();
 
 
        $message = "error";
@@ -37,7 +34,13 @@ class ReporteController extends Controller
 
 
         if(count($codigo)>0){
-            return view('reportes.create', ['id' =>$codigo]);
+            if(count($reporte)==0){
+                return view('reportes.create', ['id' =>$codigo]);
+            }else{
+                $message = "entregado";
+                return view('reportes.login', ['message' => $message]);
+            }
+
         }else{
 
             return view('reportes.login', ['message' => $message]);
