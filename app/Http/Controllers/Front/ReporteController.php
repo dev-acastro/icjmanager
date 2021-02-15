@@ -96,9 +96,9 @@ class ReporteController extends Controller
 
         $email = $user->sector->email;
 
-        if($email !== Null){
+       /* if($email !== Null){
             Mail::to($email)->send(new ReporteEntregado($report, $user));
-        }
+        }*/
 
 
 
