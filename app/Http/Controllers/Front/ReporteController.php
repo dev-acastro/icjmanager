@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ReporteEntregado;
 use App\Models\Grupo;
 use App\Models\Reporte;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Prologue\Alerts\Facades\Alert;
 use Illuminate\Support\Facades\DB;
 
@@ -89,6 +91,20 @@ class ReporteController extends Controller
         $report->save();
         $message = "success";
 
+        $user = Grupo::find($request->input('id'))->load('Sector');
+        //return $user;
+
+        $email = $user->sector->email;
+
+        if($email !== Null){
+            Mail::to($email)->send(new ReporteEntregado($report, $user));
+        }
+
+
+
+
+
+       // return view('mail.ReporteEntregado', ['grupo' => $user, 'reporte' => $report]);
 
         return view('reportes.login', ['message' => $message]);
 
