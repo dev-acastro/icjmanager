@@ -92,7 +92,7 @@ class ReporteController extends Controller
         $message = "success";
 
         $user = Grupo::find($request->input('id'))->load('Sector');
-        //return $user;
+
 
         $email = $user->sector->email;
 

@@ -91,7 +91,7 @@
             </tr>
             <tr>
                 <th>Integrados a Ibbaj: </th>
-                <td>{{$reporte->integrados_ibbaj}}</td>
+                <td>{{$reporte->integrados_biblico}}</td>
             </tr>
 
         </table>
