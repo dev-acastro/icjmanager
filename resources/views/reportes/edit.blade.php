@@ -8,7 +8,8 @@
         Swal.fire({
             title: "Atencion Lider",
             icon: "info",
-            text: "Estimado servidor, completar los datos faltantes antes de proceder con el Reporte"
+            text: "Estimado servidor, completar los datos faltantes antes de proceder con el Reporte",
+           width: '80%'
 
         })
     </script>
@@ -19,7 +20,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header text-center" >Actualizar Datos   - <span></span>  <p>Lider: <span></span></p></div>
+                    <div class="card-header text-center" >Actualizacion de Datos   - <span></span> </div>
 
                     <div class="card-body">
                         <form method="POST" action="{{route('reporte.update', ['reporte' => $grupo->id])}}" id="ReportesForm">
@@ -71,6 +72,7 @@
                             </div>
 
 
+                            <p style="text-align: center">Esta Sección corresponde a la direccion del Anfitrión</p><hr>
 
 
                             {{--                                Departamento--}}
