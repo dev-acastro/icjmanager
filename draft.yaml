@@ -47,6 +47,8 @@ models:
       belongsTo: Sector
       hasMany: Reporte
 
+
+
   Usuario:
     codigo_usuarios: string
     cargo: string

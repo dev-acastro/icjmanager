@@ -21,6 +21,9 @@ class Grupo extends Model
         'telefono',
         'email',
         'sector_id',
+        'departamento',
+        'municipio',
+        'direccion'
     ];
 
     /**

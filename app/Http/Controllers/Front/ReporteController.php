@@ -33,32 +33,36 @@ class ReporteController extends Controller
 
        $message = "error";
 
-
-
         if(count($codigo)>0){
             if(count($reporte)==0){
-                return view('reportes.create', ['id' =>$codigo]);
+                if($codigo[0]->direccion =="" or $codigo[0]->direccion == null or $codigo[0]->lider == ""){
+                    return redirect(route('reporte.edit', ['reporte' =>$codigo[0]->id]));
+                }
+
+                return redirect(route('reporteCreate', $codigo[0]->id));
+
             }else{
                 $message = "entregado";
                 return view('reportes.login', ['message' => $message]);
             }
-
         }else{
-
             return view('reportes.login', ['message' => $message]);
-
-
         }
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
+
+       $grupo = Grupo::find($id)->load('Sector');
+
+
+        return view('reportes.create', ['grupo' => $grupo]);
 
 
     }
@@ -79,6 +83,7 @@ class ReporteController extends Controller
             'grupo_id' => $request->input('id'),
             'codigo_grupo' => $request->input('codigo_grupo'),
             'fecha' => $request->input('fecha'),
+            'asistencia_niños'=> $request->input('niños'),
             'asistencia_adultos'=> $request->input('adultos'),
             'invitados_inconversos' => $request->input('inconversos'),
             'conversiones' => $request->input('conversiones'),
@@ -99,7 +104,6 @@ class ReporteController extends Controller
         if($email !== Null){
             Mail::to($email)->send(new ReporteEntregado($report, $user));
         }
-
 
 
 
@@ -125,11 +129,17 @@ class ReporteController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit($id)
     {
         //
+
+        $grupo = Grupo::find($id);
+
+
+        return view('reportes.edit', ['grupo' => $grupo]);
+
     }
 
     /**
@@ -137,11 +147,24 @@ class ReporteController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, $id)
     {
-        //
+
+
+        $grupo = Grupo::find($id);
+
+
+        $grupo->lider = $request->input('lider');
+        $grupo->telefono = $request->input('telefono');
+        $grupo->email = $request->input('email');
+        $grupo->departamento = $request->input('departamento');
+        $grupo->municipio = $request->input('municipio');
+        $grupo->direccion = $request->input('direccion');
+        $grupo->save();
+        return redirect(route('reporteCreate', $grupo->id));
+
     }
 
     /**

@@ -18,12 +18,14 @@ class Reporte extends Model
     protected $fillable = [
         'grupo_id',
         'codigo_grupo',
+        'asistencia_niños',
         'asistencia_adultos',
         'invitados_inconversos',
         'conversiones',
         'integrados_ccdl',
         'integrados_biblico',
         'fecha',
+
     ];
 
     /**

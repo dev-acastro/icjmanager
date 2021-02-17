@@ -8,7 +8,7 @@
                 @if($message == 'entregado')
 
                     <script>
-                        swal ( "Denegado" ,  "El reporte de esta semana ya se ha entregado" ,  "warning" )
+                        Swal.fire( "Denegado" ,  "El reporte de esta semana ya se ha entregado" ,  "warning" )
                     </script>
 
                 @endif
@@ -18,7 +18,7 @@
                 <script>
 
 
-                    swal ( "Exito" ,  "Reporte Guardado con Exito" ,  "success" )
+                    Swal.fire( "Exito" ,  "Reporte Guardado con Exito" ,  "success" )
 
                 </script>
 
@@ -26,7 +26,7 @@
 
                 @if($message == 'error')
                         <script>
-                            swal ( "Error" ,  "Grupo No Encontrado, por favor ingresar el codigo correctamente" ,  "error" )
+                            Swal.fire( "Error" ,  "Grupo No Encontrado, por favor ingresar el codigo correctamente" ,  "error" )
 
                         </script>
                 @endif

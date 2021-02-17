@@ -70,6 +70,11 @@
                 <td>{{date('Y-m-d', strtotime($reporte->fecha))}}</td>
             </tr>
 
+            <tr>
+                <th>Asistencia Niños: </th>
+                <td>{{$reporte->asistencia_niños}}</td>
+            </tr>
+
 
             <tr>
                 <th>Asistencia Adultos: </th>

@@ -6,40 +6,11 @@
 
 
 
-    @if(false/*$id[0]->lider == ''*/)
-        <script>
-            swal("Ingresar el Nombre del Lider de Grupo:", {
-                title : "Se requiere Nombre de Lider",
-                content: "input",
-                icon: "info",
-                button :{
-                text: "OK",
-                value: true,
-                visible: true,
-                className: "",
-                closeModal: true,
-
-                }
-
-            })
-                .then((value) => {
-
-                var nameElement = getElementById('ReportesForm');
-                nameElement.html('<h1>hOLA</h1>')
-                    swal(`You typed: ${value}`);
-                });
-
-
-
-        </script>
-
-    @endif
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header text-center" >Codigo de Grupo  - <span>{{$id[0]->codigo_grupo}}</span>  <p>Lider: <span>{{$id[0]->lider}}</span></p></div>
+                    <div class="card-header text-center" >Codigo de Grupo  - <span>{{$grupo->codigo_grupo}}</span>  <p>Lider: <span>{{$grupo->lider}}</span></p> <p>Lider de Sector: {{$grupo->sector->supervisor}}</p></div>
 
                     <div class="card-body">
                         <form method="POST" action="{{route('reporte.store')}}" id="ReportesForm">
@@ -61,6 +32,22 @@
                                 </div>
                             </div>
 
+
+                            {{--                                Asistencia Niños--}}
+                            <div class="form-group row">
+                                <label for="niños" class="col-md-4 col-form-label text-md-right">Asistencia Niños</label>
+
+                                <div class="col-md-6">
+                                    <input id="niños" type="number" class="form-control @error('niños') is-invalid @enderror" name="niños" value="{{ old('niños') }}" required autocomplete="niños" autofocus>
+
+                                    @error('niños')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
                             {{--                                Asistencia Adultos--}}
                             <div class="form-group row">
                                 <label for="adultos" class="col-md-4 col-form-label text-md-right">Asistencia Adultos</label>
@@ -75,6 +62,8 @@
                                     @enderror
                                 </div>
                             </div>
+
+
                             {{--                                Invitados Inconversos--}}
                             <div class="form-group row">
                                 <label for="inconversos" class="col-md-4 col-form-label text-md-right">Invitados Inconversos</label>
@@ -135,8 +124,8 @@
                                 </div>
                             </div>
 
-                            <input type="hidden" name="id" value="{{$id[0]->id}}">
-                            <input type="hidden" name="codigo_grupo" value="{{$id[0]->codigo_grupo}}">
+                            <input type="hidden" name="id" value="{{$grupo->id}}">
+                            <input type="hidden" name="codigo_grupo" value="{{$grupo->codigo_grupo}}">
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
