@@ -6,9 +6,9 @@
 
     <script>
         Swal.fire({
-            title: "Atencion",
+            title: "Atencion Lider",
             icon: "info",
-            text: "Estimado servidor, completar los datos faltantes"
+            text: "Estimado servidor, completar los datos faltantes antes de proceder con el Reporte"
 
         })
     </script>
