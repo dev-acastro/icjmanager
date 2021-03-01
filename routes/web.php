@@ -4,6 +4,7 @@ use App\Mail\ReporteEntregado;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\ReporteController;
+use App\Classes\GrupoArray;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,8 @@ Route::resource('reporte', ReporteController::class);
 Route::post('reporte/login', [ReporteController::class, 'login'])->name('reporteLogin');
 
 Route::get('reporte/create/{id}', [ReporteController::class, 'create'])->name('reporteCreate');
+
+Route::get('/reporteSemanal', [\App\Http\Controllers\Front\ReporteriaController::class, 'reporteSemanal']);
 
 
 
