@@ -6,7 +6,7 @@
 
 
 
-   <div class="container">
+   <div class="container" >
 
        <div style="background-color: #eceff1; padding: 20px;">
     <h1>Reporte por Sector </h1>
@@ -94,7 +94,7 @@
                <thead>
                <tr>
                    <th>Codigo</th>
-                   <th>Sector</th>
+                   <th>Grupo.,</th>
                    <th>Adultos</th>
                    <th>Niños</th>
                    <th>Inconversos</th>
@@ -135,26 +135,31 @@
                                @foreach($sectores as $cg => $grupo)
 
 
-
-                                    <tr>
+                                    <tr style="{{isset($wReportes[$grupo->codigo_grupo])? "" : "background-color: #ff6f60 "}}">
                                         <th>
                                             {{$grupo->codigo_grupo}}
                                         </th>
                                         <th>
                                             {{$grupo->lider}}
                                         </th>
-                                        @foreach($wReportes as $wr)
-                                            @if($wr->codigo_grupo == $grupo->codigo_grupo)
 
-                                                <td>{{$wr->asistencia_adultos}}</td>
-                                                <td>{{$wr->asistencia_niños}}</td>
-                                                <td>{{$wr->invitados_inconversos}}</td>
-                                                <td>{{$wr->conversiones}}</td>
-                                                <td>{{$wr->integrados_ccdl}}</td>
-                                                <td>{{$wr->integrados_biblico}}</td>
+                                        @if(isset($wReportes[$grupo->codigo_grupo]))
+                                            <td>{{$wReportes[$grupo->codigo_grupo]->asistencia_adultos}}</td>
+                                            <td>{{$wReportes[$grupo->codigo_grupo]->asistencia_niños}}</td>
+                                            <td>{{$wReportes[$grupo->codigo_grupo]->invitados_inconversos}}</td>
+                                            <td>{{$wReportes[$grupo->codigo_grupo]->conversiones}}</td>
+                                            <td>{{$wReportes[$grupo->codigo_grupo]->integrados_ccdl}}</td>
+                                            <td>{{$wReportes[$grupo->codigo_grupo]->integrados_biblico}}</td>
+                                        @else
+                                            <td> {{"--"}}</td>
+                                            <td> {{"--"}}</td>
+                                            <td> {{"--"}}</td>
+                                            <td> {{"--"}}</td>
+                                            <td> {{"--"}}</td>
+                                            <td> {{"--"}}</td>
 
-                                            @endif
-                                        @endforeach
+                                        @endif
+
                                     </tr>
                                @endforeach
 

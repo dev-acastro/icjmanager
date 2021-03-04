@@ -19,6 +19,7 @@ class ReporteriaController extends Controller
         $dr = [];
         $reportes = DB::table('reportes')->whereRaw("WEEKOFYEAR(FECHA) = WEEKOFYEAR(NOW())-1")->get();
         $fr = array();
+        $fixedReportes = array();
 
         foreach ($reportes as  $wr){
          $dr[substr($wr->codigo_grupo, 0, 8)][] = $wr;
@@ -44,10 +45,12 @@ class ReporteriaController extends Controller
             }
         }
 
+        foreach($reportes as $cg ){
+            $fixedReportes[$cg->codigo_grupo] = $cg;
+        }
 
 
 
-
-        return view('reportes.reporte', ["reporte"=>$reporteArray, 'sector'=> $sector, 'wReportes' => $reportes, 'fr' =>$fr]);
+        return view('reportes.reporte', ["reporte"=>$reporteArray, 'sector'=> $sector, 'wReportes' => $fixedReportes, 'fr' =>$fr]);
     }
 }
