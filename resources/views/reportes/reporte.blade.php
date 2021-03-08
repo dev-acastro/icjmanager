@@ -9,7 +9,7 @@
     <h1>Reporte por Sector </h1>
 
 @foreach($reporte as $x => $zona)
-               <table class="table table-striped table-bordered" style="page-break-after: always; margin-bottom: 100px">
+               <table class="table table-striped table-bordered" style=" margin-bottom: 100px">
                    <thead>
                    <tr>
                        <th>Codigo</th>

@@ -23,6 +23,8 @@ class ReporteriaController extends Controller
         $fr = array();
         $fixedReportes = array();
 
+        return $reportes;
+
         foreach ($reportes as  $wr){
          $dr[substr($wr->codigo_grupo, 0, 8)][] = $wr;
         }
@@ -36,7 +38,7 @@ class ReporteriaController extends Controller
                     $fr[$key]['conversiones'] +=$drrr->conversiones;
                     $fr[$key]['ccdl'] +=$drrr->integrados_ccdl;
                     $fr[$key]['ibbaj'] +=$drrr->integrados_biblico;
-                }else{
+                }elseif(!isset($fr[$key])){
                     $fr[$key]['adultos'] =(int)$drrr->asistencia_adultos;
                     $fr[$key]['niños'] =(int)$drrr->asistencia_niños;
                     $fr[$key]['inconversos'] =(int)$drrr->invitados_inconversos;
