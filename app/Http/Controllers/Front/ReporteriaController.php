@@ -23,7 +23,7 @@ class ReporteriaController extends Controller
         $fr = array();
         $fixedReportes = array();
 
-        return $reportes;
+
 
         foreach ($reportes as  $wr){
          $dr[substr($wr->codigo_grupo, 0, 8)][] = $wr;
@@ -141,6 +141,7 @@ class ReporteriaController extends Controller
 
         $pdf = PDF::loadView('prints.semanal', ["reporte"=>$reporteArray, 'sector'=> $sector, 'wReportes' => $fixedReportes, 'fr' =>$fr]);
 
+        $pdf->set_paper(DEFAULT_PDF_PAPER_SIZE, 'portrait');
         return $pdf->stream('reporteI.pdf');
 
     }
