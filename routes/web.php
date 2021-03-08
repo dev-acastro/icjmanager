@@ -31,5 +31,4 @@ Route::get('reporte/create/{id}', [ReporteController::class, 'create'])->name('r
 
 Route::get('/reporteSemanal', [\App\Http\Controllers\Front\ReporteriaController::class, 'reporteSemanal']);
 
-
-
+Route::get('/chart', [\App\Http\Controllers\Front\ReporteriaController::class, 'chart']);
