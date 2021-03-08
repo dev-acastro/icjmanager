@@ -4,28 +4,26 @@
 
 @section('content')
 
-
-
-   <div class="container" >
-
-       <div style="background-color: #eceff1; padding: 20px;">
+    <div  class="container">
+        <div style="background-color: #eceff1; padding: 20px; page-break-after: always;">
     <h1>Reporte por Sector </h1>
 
-    <table class="table table-striped table-bordered">
-        <thead>
-        <tr>
-            <th>Codigo</th>
-            <th>Sector</th>
-            <th>Adultos</th>
-            <th>Niños</th>
-            <th>Inconversos</th>
-            <th>Conversiones</th>
-            <th>IBBAJ</th>
-            <th>CCDL</th>
-        </tr>
-        </thead>
-        <tbody>
 @foreach($reporte as $x => $zona)
+               <table class="table table-striped table-bordered" style="page-break-after: always; margin-bottom: 100px">
+                   <thead>
+                   <tr>
+                       <th>Codigo</th>
+                       <th>Sector</th>
+                       <th>Adultos</th>
+                       <th>Niños</th>
+                       <th>Inconversos</th>
+                       <th>Conversiones</th>
+                       <th>IBBAJ</th>
+                       <th>CCDL</th>
+                   </tr>
+                   </thead>
+                   <tbody>
+
    <tr>
         <th colspan="8">
        <div style="width: 100%; background-color: #0B90C4; height: 30px; text-align: center; margin: 10px auto; color:white;">{{$x}}</div>
@@ -79,32 +77,33 @@
                 @endforeach
             @endforeach
         @endforeach
+                   </tbody>
+               </table>
+
     @endforeach
 
-        </tbody>
-    </table>
-       </div>
-
+        </div>
 
 
        <div style="background-color: #eceff1; padding: 20px;">
            <h1>Reporte por Grupo </h1>
 
-           <table class="table table-striped table-bordered">
-               <thead>
-               <tr>
-                   <th>Codigo</th>
-                   <th>Grupo.,</th>
-                   <th>Adultos</th>
-                   <th>Niños</th>
-                   <th>Inconversos</th>
-                   <th>Conversiones</th>
-                   <th>IBBAJ</th>
-                   <th>CCDL</th>
-               </tr>
-               </thead>
-               <tbody>
+
                @foreach($reporte as $x => $zona)
+               <table class="table table-striped table-bordered">
+                   <thead>
+                   <tr>
+                       <th>Codigo</th>
+                       <th>Grupo.,</th>
+                       <th>Adultos</th>
+                       <th>Niños</th>
+                       <th>Inconversos</th>
+                       <th>Conversiones</th>
+                       <th>IBBAJ</th>
+                       <th>CCDL</th>
+                   </tr>
+                   </thead>
+                   <tbody>
                    <tr>
                        <th colspan="8">
                            <div style="width: 100%; background-color: #0B90C4; height: 30px; text-align: center; margin: 10px auto; color:white;">{{$x}}</div>
@@ -162,53 +161,15 @@
 
                                     </tr>
                                @endforeach
-
-
-                               {{--<tr style="{{isset($fr[$x.$y.$z.$a])? '' : 'background-color:#ff6f60' }}">
-                                   @foreach($sector as $sectorIndividual)
-
-                                       @if(array_search($x.$y.$z.$a, $sectorIndividual) == "codigo_sector")
-                                           <td>  {{$sectorIndividual['codigo_sector']}}</td>
-                                           <td>  {{$sectorIndividual['supervisor']}}</td>
-                                       @endif
-                                   @endforeach
-
-
-                                   @if(isset($fr[$x.$y.$z.$a]))
-                                       <td> {{$fr[$x.$y.$z.$a]['adultos']}} </td>
-                                       <td>{{$fr[$x.$y.$z.$a]['niños']}}</td>
-                                       <td>{{$fr[$x.$y.$z.$a]['inconversos']}}</td>
-                                       <td>{{$fr[$x.$y.$z.$a]['conversiones']}}</td>
-                                       <td>{{$fr[$x.$y.$z.$a]['ccdl']}}</td>
-                                       <td>{{$fr[$x.$y.$z.$a]['ibbaj']}}</td>
-                                   @else
-                                       <td> {{"--"}}</td>
-                                       <td> {{"--"}}</td>
-                                       <td> {{"--"}}</td>
-                                       <td> {{"--"}}</td>
-                                       <td> {{"--"}}</td>
-                                       <td> {{"--"}}</td>
-
-                                   @endif
-
-
-
-
-
-
-                               </tr>--}}
-
-
-
                            @endforeach
                        @endforeach
                    @endforeach
+                   </tbody>
+               </table>
+
+
+
                @endforeach
-
-               </tbody>
-           </table>
        </div>
-
-    </div>
-
+   </div>
 @endsection
