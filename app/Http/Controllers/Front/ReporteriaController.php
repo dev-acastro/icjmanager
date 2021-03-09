@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 Use PDF;
 
+
 class ReporteriaController extends Controller
 {
     //
@@ -61,31 +62,26 @@ class ReporteriaController extends Controller
     public function chart (){
 
         $reportesByDate=array();
-
-      $reportes= Reporte::all();
+        $reportes= Reporte::all();
         $reportesByZona=array();
 
-
-
-
       foreach ($reportes as $a => $reporte){
-
-
 
             $ddate = $reporte->fecha;
             $date = new DateTime($ddate);
             $week = $date->format("W");
             $zona = substr($reporte->codigo_grupo, 0, 2);
 
-            if(!isset($reportesByZona[$zona]) or !isset($reportesByZona[$zona][$week]) or !isset($reportesByZona[$zona][$week]['adultos']) ){
+            if(!isset($reportesByZona[$zona]) or
+                !isset($reportesByZona[$zona][$week]) or
+                !isset($reportesByZona[$zona][$week]['adultos']) or
+                !isset($reportesByZona[$zona][$week]['niños']))
+            {
                 $reportesByZona[$zona][$week]['adultos'] = $reporte->asistencia_adultos;
             }else{
                 $reportesByZona[$zona][$week]['adultos'] += $reporte->asistencia_adultos;
+                $reportesByZona[$zona][$week]['niños'] += $reporte->asistencia_niños;
             }
-
-
-
-
 
 
 
@@ -93,9 +89,9 @@ class ReporteriaController extends Controller
             $reportesByDate[$week][$reporte->codigo_grupo] = $reporte;
       }
 
-      print_r($reportesByZona);
 
-//      return view('reportes.charts', ["reportes" => $reportes]);
+
+      return view('reportes.charts', ["reportes" => $reportes]);
 
     }
 
