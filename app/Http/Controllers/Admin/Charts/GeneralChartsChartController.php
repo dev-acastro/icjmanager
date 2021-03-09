@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Charts;
 use Backpack\CRUD\app\Http\Controllers\ChartController;
 use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 
+
 /**
  * Class GeneralChartsChartController
  * @package App\Http\Controllers\Admin\Charts
