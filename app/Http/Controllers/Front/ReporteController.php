@@ -26,7 +26,7 @@ class ReporteController extends Controller
 
     public function login(Request $request){
 
-        $codigo_grupo = $request->grupo;
+        $codigo_grupo = strtoupper($request->grupo);
         $codigo = Grupo::where('codigo_grupo', $codigo_grupo)->get();
         $reporte = DB::table('reportes')->where('codigo_grupo', $codigo_grupo)->whereRaw('YEARWEEK(fecha) = YEARWEEK(NOW())')->get();
 
