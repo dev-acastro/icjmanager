@@ -16,6 +16,9 @@ return [
     */
     'global_route_prefix' => 'api/chart',
 
+
+    'default_library' => 'Chartjs',
+
     /*
     |--------------------------------------------------------------------------
     | Global Middlewares.
