@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin\Charts;
 
 use Backpack\CRUD\app\Http\Controllers\ChartController;
-use ConsoleTVs\Charts\Classes\Chartjs\Chart;
+use ConsoleTVs\Charts\BaseChart;
+use Chartisan\PHP\Chartisan;
+
 
 
 /**
@@ -38,6 +40,9 @@ class GeneralChartsChartController extends ChartController
      */
      public function data()
      {
+
+
+
                  $this->chart->dataset('Users Created', 'bar', ['1', '2', '3', '4' ])
              ->color('rgba(205, 32, 31, 1)')
              ->backgroundColor('rgba(205, 32, 31, 0.4)');
