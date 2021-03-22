@@ -68,6 +68,12 @@ class ZonaCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
+
+        \Backpack\CRUD\app\Library\Widget::add([
+            'type' => 'line',
+            'controller' => GeneralChartsChartController::class,
+        ])->to('before_content');
+
         CRUD::setValidation(ZonaRequest::class);
 
         CRUD::setFromDb(); // fields
