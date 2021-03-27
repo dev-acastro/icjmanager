@@ -1,8 +1,12 @@
+@extends(backpack_view('blank'))
+
 @extends('layouts.topbar')
 
 
 
 @section('content')
+
+
 
     <div  class="container">
         <div style="background-color: #eceff1; padding: 20px; page-break-after: always;">

@@ -22,4 +22,5 @@ Route::group([
     Route::crud('usuario', 'UsuarioCrudController');
     Route::crud('zona', 'ZonaCrudController');
     Route::get('charts/general-charts', 'Charts\GeneralChartsChartController@response')->name('charts.general-charts.index');
+    Route::get('charts/weekly-report', 'Charts\WeeklyReportChartController@response')->name('charts.weekly-report.index');
 }); // this should be the absolute last line of this file
