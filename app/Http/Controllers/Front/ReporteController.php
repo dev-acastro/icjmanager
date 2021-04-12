@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Prologue\Alerts\Facades\Alert;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class ReporteController extends Controller
 {
@@ -26,7 +27,16 @@ class ReporteController extends Controller
 
     public function login(Request $request){
 
+
+
         $codigo_grupo = strtoupper($request->grupo);
+
+
+
+        if(strlen($codigo_grupo)<10) {
+           return redirect(route("charts", ["codigo" =>$codigo_grupo]));
+        }
+
         $codigo = Grupo::where('codigo_grupo', $codigo_grupo)->get();
         $reporte = DB::table('reportes')->where('codigo_grupo', $codigo_grupo)->whereRaw('YEARWEEK(fecha) = YEARWEEK(NOW())')->get();
 
@@ -61,8 +71,14 @@ class ReporteController extends Controller
 
        $grupo = Grupo::find($id)->load('Sector');
 
+        $now = Carbon::now('America/El_Salvador');
+        $format = $now->format('Y-m-d');
 
-        return view('reportes.create', ['grupo' => $grupo]);
+        $monday = Carbon::now('America/El_Salvador')->startOfWeek()->format('Y-m-d');
+        $sunday = Carbon::now('America/El_Salvador')->endOfWeek()->format('Y-m-d');
+
+
+        return view('reportes.create', ['grupo' => $grupo, 'monday' => $monday, 'sunday'=>$sunday, 'now'=>$now, 'format'=>$format]);
 
 
     }

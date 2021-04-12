@@ -5,6 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
+
                     <div class="card-header text-center" >Codigo de Grupo  - <span>{{$grupo->codigo_grupo}}</span>  <p>Lider: <span>{{$grupo->lider}}</span></p> <p>Lider de Sector: {{$grupo->sector->supervisor}}</p></div>
 
                     <div class="card-body">
@@ -17,7 +18,7 @@
                                 <label for="fecha" class="col-md-4 col-form-label text-md-right">Fecha a Reportar</label>
 
                                 <div class="col-md-6">
-                                    <input id="fecha" onkeydown="return false"  min="2021-04-05" max="2021-04-11" type="date" class="form-control @error('asistencia_adultos') is-invalid @enderror" name="fecha" value="{{ old('asistencia_adultos') }}" required autocomplete="asistencia_adultos" autofocus>
+                                    <input id="fecha" onkeydown="return false"  min="{{$monday}}" max="{{$sunday}}" type="date" class="form-control @error('asistencia_adultos') is-invalid @enderror" name="fecha" value="{{ old('asistencia_adultos') }}" required autocomplete="asistencia_adultos" autofocus>
 
                                     @error('fecha')
                                     <span class="invalid-feedback" role="alert">

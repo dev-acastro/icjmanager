@@ -35,5 +35,6 @@ Route::get('/chart', [\App\Http\Controllers\Front\ReporteriaController::class, '
 
 Route::get('/print', [\App\Http\Controllers\Front\ReporteriaController::class, 'print']);
 
+Route::get('/charts', [\App\Http\Controllers\Front\ChartsController::class, 'index'])->name("charts");
 
 
