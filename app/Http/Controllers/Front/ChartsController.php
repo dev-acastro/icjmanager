@@ -46,8 +46,14 @@ class ChartsController extends Controller
         $reportesThisWeek = DB::table('reportes')->where('codigo_grupo', 'like', $codigo."%")->whereRaw('YEARWEEK(fecha, 1) = YEARWEEK(NOW(), 1)')->get();
         $reportesLastWeek = DB::table('reportes')->where('codigo_grupo', 'like', $codigo."%")->whereRaw('YEARWEEK(fecha, 1) = YEARWEEK(NOW(), 1)-1')->get();
         $reportes = DB::table('reportes')->where('codigo_grupo', 'like', $codigo."%")->get();
+        $lastMonth = DB::table('reportes')->where('codigo_grupo', 'like',  $codigo."%")->whereRaw("fecha BETWEEN (NOW() - interval 30 day) AND NOW()")->get();
 
-        return ;
+
+        $countGroup = count($grupos);
+
+        return view('charts.home', ['countGroup'=>$countGroup]);
+
+
 
 
 
