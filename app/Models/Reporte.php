@@ -24,6 +24,7 @@ class Reporte extends Model
         'conversiones',
         'integrados_ccdl',
         'integrados_biblico',
+        'asistencia_domingos',
         'fecha',
 
     ];

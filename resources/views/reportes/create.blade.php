@@ -120,6 +120,21 @@
                                 </div>
                             </div>
 
+                            {{--                                Asistencia Domingos--}}
+                            <div class="form-group row">
+                                <label for="asistencia_domingos" class="col-md-4 col-form-label text-md-right">¿Cuantos Asistieron a Culto Presencial este Domingo?</label>
+
+                                <div class="col-md-6">
+                                    <input id="asistencia_domingos" type="number" class="form-control @error('asistencia_domingos') is-invalid @enderror" name="asistencia_domingos" value="{{ old('asistencia_domingos') }}" required autocomplete="asistencia_domingos">
+
+                                    @error('asistencia_domingos')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <input type="hidden" name="id" value="{{$grupo->id}}">
                             <input type="hidden" name="codigo_grupo" value="{{$grupo->codigo_grupo}}">
 
