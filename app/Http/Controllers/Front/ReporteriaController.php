@@ -55,12 +55,6 @@ class ReporteriaController extends Controller
             $fixedReportes[$cg->codigo_grupo] = $cg;
         }
 
-        Widget::add([
-            'type' => 'chart',
-            'controller' => \App\Http\Controllers\Admin\Charts\WeeklyReportChartController::class,
-        ])->to('before_content');
-
-
         return view('reportes.reporte', ["reporte"=>$reporteArray, 'sector'=> $sector, 'wReportes' => $fixedReportes, 'fr' =>$fr]);
     }
 

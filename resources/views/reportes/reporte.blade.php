@@ -1,4 +1,4 @@
-@extends(backpack_view('blank'))
+{{--@extends(backpack_view('blank'))--}}
 
 @extends('layouts.topbar')
 
@@ -10,10 +10,20 @@
 
     <div  class="container">
         <div style="background-color: #eceff1; padding: 20px; page-break-after: always;">
-    <h1>Reporte por Sector </h1>
+        <h1>Reporte por Sector   </h1>
+
+
+            <a class="btn btn-primary" data-toggle="collapse" href="#reporteSector" role="button" aria-expanded="false" aria-controls="reporteSector">
+                Collapse
+            </a>
+
+            <div id="reporteSector" class="collapse">
+                <p>Pruebas de Data </p>
+                <p>Pruebas de Data </p>
+            </div>
 
 @foreach($reporte as $x => $zona)
-               <table class="table table-striped table-bordered" style=" margin-bottom: 100px">
+               <table  id="" class="table table-striped table-bordered " style=" margin-bottom: 100px">
                    <thead>
                    <tr>
                        <th>Codigo</th>
@@ -176,4 +186,12 @@
                @endforeach
        </div>
    </div>
+
+  {{--  <div style="height: 60px; width: 100%; background-color: red; position: fixed; bottom: 0;">
+        <div class="w-100 h-100 bg-primary">
+            <ul>
+                <li></li>
+            </ul>
+        </div>
+    </div>--}}
 @endsection
