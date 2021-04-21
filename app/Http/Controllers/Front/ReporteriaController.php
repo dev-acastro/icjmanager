@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Reporte;
 use Backpack\CRUD\app\Library\Widget;
+use Carbon\Traits\Creator;
 use DateTime;
 use Illuminate\Http\Request;
 use App\Classes\GrupoArray;
@@ -20,11 +21,12 @@ class ReporteriaController extends Controller
         $reporte = new GrupoArray();
         $reporteArray = $reporte->getArray();
         $sector = Sector::all()->toArray();
+        $allReports = Reporte::all()->toArray();
         $dr = [];
         $reportes = DB::table('reportes')->whereRaw("WEEKOFYEAR(FECHA) = WEEKOFYEAR(NOW())-1")->get();
         $fr = array();
         $fixedReportes = array();
-
+        $byWeekReports = array();
 
 
         foreach ($reportes as  $wr){
@@ -57,6 +59,10 @@ class ReporteriaController extends Controller
 
         return view('reportes.reporte', ["reporte"=>$reporteArray, 'sector'=> $sector, 'wReportes' => $fixedReportes, 'fr' =>$fr]);
     }
+
+
+
+
 
     public function chart (){
 
@@ -138,6 +144,57 @@ class ReporteriaController extends Controller
 
         $pdf->set_paper(DEFAULT_PDF_PAPER_SIZE, 'portrait');
         return $pdf->stream('reporteI.pdf');
+
+    }
+
+    public function byMonth(){
+        $reportes = Reporte::all()->toArray();
+        $byMonthArray = array();
+        $statsByMonth= array();
+        $byMonth = "";
+
+
+        foreach ($reportes as $reporte){
+
+            $date = new Carbon($reporte['fecha']);
+            $month = $date->monthName;
+            $year = $date->year;
+            $byMonthArray[$year][$month] = $reporte;
+
+         //   print_r($byMonthArray['2021']['February']);
+
+
+        }
+
+
+
+        foreach ($byMonthArray as $key => $year){
+
+
+
+            foreach ($year as  $km => $months){
+
+                echo $km;
+
+
+                if($km === array_key_first($year)){
+                   $statsByMonth[$year][$km]= [
+                     'adultos' => 0 ,
+                       'niños' => 0 ,
+                       'inconversos' => 0 ,
+                       'conversiones' => 0 ,
+
+                   ];
+                }
+
+
+                //$statsByMonth[$year][$km]['adultos']+=$months['asistencia_adultos'];
+
+            }
+        }
+
+        //print_r($statsByMonth);
+
 
     }
 }
