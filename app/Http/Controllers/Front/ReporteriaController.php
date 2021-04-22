@@ -148,10 +148,38 @@ class ReporteriaController extends Controller
     }
 
     public function byMonth(){
+
+
+        $byWeek = DB::table('reportes')
+            ->selectRaw('SUM(asistencia_adultos) as Adultos, SUM(asistencia_niños) as Niños, YEARWEEK(fecha) as Semana')
+            ->groupByRaw('YEARWEEK(fecha)')
+            ->get();
+
+        $byMonth = DB::table('reportes')
+            ->selectRaw('SUM(asistencia_adultos) as Adultos, SUM(asistencia_niños) as Niños, MONTHNAME(fecha) as Mes
+
+  , count(asistencia_adultos) as reportes')
+            ->groupByRaw('MONTHNAME(fecha)')
+            ->get();
+
+
+
+
+
+
+        $byYearMonth = DB::table('reportes')->whereRaw("WEEKOFYEAR(FECHA) = WEEKOFYEAR(NOW())-1")->get();
         $reportes = Reporte::all()->toArray();
         $byMonthArray = array();
         $statsByMonth= array();
         $byMonth = "";
+
+        $adultos = DB::table('reportes')->select(DB::raw('count(asistencia_adultos) as adultos,
+count(asistencia_niños) as niños,
+YEARWEEK(fecha) as semana
+
+'))->groupBy(DB::raw('YEARWEEK(fecha)'))->get();
+
+        print_r($adultos);
 
 
         foreach ($reportes as $reporte){
@@ -174,7 +202,7 @@ class ReporteriaController extends Controller
 
             foreach ($year as  $km => $months){
 
-                echo $km;
+               // echo $km;
 
 
                 if($km === array_key_first($year)){
