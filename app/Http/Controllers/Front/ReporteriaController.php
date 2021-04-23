@@ -152,13 +152,20 @@ class ReporteriaController extends Controller
 
         $byWeek = DB::table('reportes')
             ->selectRaw('SUM(asistencia_adultos) as Adultos, SUM(asistencia_niños) as Niños, YEARWEEK(fecha) as Semana')
+            ->where('codigo_grupo', 'like', 'Z3%')
             ->groupByRaw('YEARWEEK(fecha)')
             ->get();
 
-        $byMonth = DB::table('reportes')
-            ->selectRaw('SUM(asistencia_adultos) as Adultos, SUM(asistencia_niños) as Niños, MONTHNAME(fecha) as Mes
 
-  , count(asistencia_adultos) as reportes')
+
+
+
+        $byMonth = DB::table('reportes')
+            ->selectRaw('SUM(asistencia_adultos) as Adultos,
+  SUM(asistencia_niños) as Niños,
+  MONTHNAME(fecha) as Mes,
+  count(asistencia_adultos) as reportes')
+            ->where('codigo_grupo', 'like', 'Z3%')
             ->groupByRaw('MONTHNAME(fecha)')
             ->get();
 
