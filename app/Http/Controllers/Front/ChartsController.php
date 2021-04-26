@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Classes\GrupoArray;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\Distrito;
+use App\Models\Reporte;
 use App\Models\Sector;
 use App\Models\Zona;
 use Illuminate\Http\Request;
@@ -17,6 +19,25 @@ class ChartsController extends Controller
 
     public function index(){
 
+        $length = strlen($_GET['codigo']);
+        $codigo = $_GET['codigo'];
+        $data = "";
+
+
+        $grupoArray = new GrupoArray();
+        $gruposArray = $grupoArray->getArray();
+
+        $thisWeekReport = DB:table('reportes')->whereRaw('codigo_grupo', 'like', $codigo)->whereRaw;
+
+
+
+
+        $dr = [];
+        $reportes = DB::table('reportes')->whereRaw("WEEKOFYEAR(FECHA) = WEEKOFYEAR(NOW())-1")->get();
+        $fr = array();
+        $fixedReportes = array();
+        $byWeekReports = array();
+
 
         $length = strlen($_GET['codigo']);
         $codigo = $_GET['codigo'];
@@ -24,7 +45,7 @@ class ChartsController extends Controller
 
 
 
-        switch ($length) {
+        /*switch ($length) {
             case 2:
                 $data = Zona::where("codigo_supervisor", $codigo)->get();
                 break;
@@ -39,7 +60,9 @@ class ChartsController extends Controller
                 $data = Sector::where("codigo_sector", $codigo)->get();
 
                 break;
-        }
+        }*/
+
+
 
 
         $grupos = DB::table('grupos')->where('codigo_grupo', 'like', $codigo."%")->get();
@@ -47,6 +70,7 @@ class ChartsController extends Controller
         $reportesLastWeek = DB::table('reportes')->where('codigo_grupo', 'like', $codigo."%")->whereRaw('YEARWEEK(fecha, 1) = YEARWEEK(NOW(), 1)-1')->get();
         $reportes = DB::table('reportes')->where('codigo_grupo', 'like', $codigo."%")->get();
         $lastMonth = DB::table('reportes')->where('codigo_grupo', 'like',  $codigo."%")->whereRaw("fecha BETWEEN (NOW() - interval 30 day) AND NOW()")->get();
+
 
 
         $countGroup = count($grupos);

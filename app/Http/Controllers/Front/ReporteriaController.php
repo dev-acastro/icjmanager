@@ -147,7 +147,11 @@ class ReporteriaController extends Controller
 
     }
 
-    public function byMonth(){
+    public function fullReport(){
+
+
+
+
 
 
         $byWeek = DB::table('reportes')

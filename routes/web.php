@@ -37,5 +37,5 @@ Route::get('/print', [\App\Http\Controllers\Front\ReporteriaController::class, '
 
 Route::get('/charts', [\App\Http\Controllers\Front\ChartsController::class, 'index'])->name("charts");
 
-Route::get('/month', [\App\Http\Controllers\Front\ReporteriaController::class, 'byMonth']);
+//Route::get('/fullreport', [\App\Http\Controllers\Front\ReporteriaController::class, 'fullReport'])->name("fullReport");
 

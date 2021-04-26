@@ -33,7 +33,7 @@ class ReporteController extends Controller
 
 
 
-        if(strlen($codigo_grupo)<10) {
+        if(strlen($codigo_grupo)==8) {
            return redirect(route("charts", ["codigo" =>$codigo_grupo]));
         }
 
