@@ -18,46 +18,79 @@ class ReporteriaController extends Controller
 {
     //
     public function reporteSemanal(){
-        $reporte = new GrupoArray();
-        $reporteArray = $reporte->getArray();
-        $sector = Sector::all()->toArray();
-        $allReports = Reporte::all()->toArray();
-        $dr = [];
-        $reportes = DB::table('reportes')->whereRaw("WEEKOFYEAR(FECHA) = WEEKOFYEAR(NOW())-1")->get();
-        $fr = array();
-        $fixedReportes = array();
-        $byWeekReports = array();
 
 
-        foreach ($reportes as  $wr){
-         $dr[substr($wr->codigo_grupo, 0, 8)][] = $wr;
+        $from = $_GET['start'];
+        $to = $_GET['end'];
+        $cat = $_GET['cat'];
+        $reportes ="";
+
+
+        if($cat == "grupo"){
+            $reportes = DB::table('reportes')->selectRaw('SUM(asistencia_adultos) as adultos, SUM(asistencia_niños) as niños, SUM(invitados_inconversos) as inconversos, SUM(conversiones) as conversiones, SUM(integrados_biblico) as biblico, SUM(integrados_ccdl) as ccdl, SUM(asistencia_domingos) as domingos, codigo_grupo as codigo')
+                ->whereBetween('fecha', [$from, $to])
+                ->groupBy('codigo')
+                ->get();
+        }elseif ($cat == "sector"){
+            $reportes = DB::table('reportes')->selectRaw('SUM(asistencia_adultos) as adultos, SUM(asistencia_niños) as niños, SUM(invitados_inconversos) as inconversos, SUM(conversiones) as conversiones, SUM(integrados_biblico) as biblico, SUM(integrados_ccdl) as ccdl, SUM(asistencia_domingos) as domingos, SUBSTRING(codigo_grupo, 1,8) as codigo')
+                ->whereBetween('fecha', [$from, $to])
+                ->groupBy('codigo')
+                ->get();
         }
-        foreach ($dr as $drr){
+
+        $ReportesArray = json_decode($reportes);
+
+
+
+        $grupos = (new \App\Classes\GrupoArray)->getarray();
+        $sectores= Sector::all()->toArray();
+        $sectoresByCode= array();
+        //$allReports = Reporte::all()->toArray();
+        //$dr = [];
+
+
+        //$fr = array();
+        $ReportesByCodigo = array();
+        //$byWeekReports = array();
+
+
+        /*foreach ($reportes as  $wr){
+         $dr[substr($wr->codigo_grupo, 0, 8)][] = $wr;
+        }*/
+        /*foreach ($dr as $drr){
             foreach ($drr as $drrr){
                 $key = substr($drrr->codigo_grupo, 0,8);
                 if(isset($fr[$key])){
-                    $fr[$key]['adultos'] +=$drrr->asistencia_adultos;
-                    $fr[$key]['niños'] +=$drrr->asistencia_niños;
-                    $fr[$key]['inconversos'] +=$drrr->invitados_inconversos;
+                    $fr[$key]['adultos'] +=$drrr->adultos;
+                    $fr[$key]['niños'] +=$drrr->niños;
+                    $fr[$key]['inconversos'] +=$drrr->inconversos;
                     $fr[$key]['conversiones'] +=$drrr->conversiones;
-                    $fr[$key]['ccdl'] +=$drrr->integrados_ccdl;
-                    $fr[$key]['ibbaj'] +=$drrr->integrados_biblico;
+                    $fr[$key]['ccdl'] +=$drrr->ccdl;
+                    $fr[$key]['ibbaj'] +=$drrr->biblico;
                 }elseif(!isset($fr[$key])){
-                    $fr[$key]['adultos'] =(int)$drrr->asistencia_adultos;
-                    $fr[$key]['niños'] =(int)$drrr->asistencia_niños;
-                    $fr[$key]['inconversos'] =(int)$drrr->invitados_inconversos;
+                    $fr[$key]['adultos'] =(int)$drrr->adultos;
+                    $fr[$key]['niños'] =(int)$drrr->niños;
+                    $fr[$key]['inconversos'] =(int)$drrr->inconversos;
                     $fr[$key]['conversiones'] =(int)$drrr->conversiones;
-                    $fr[$key]['ccdl'] =(int)$drrr->integrados_ccdl;
-                    $fr[$key]['ibbaj'] =(int)$drrr->integrados_biblico;
+                    $fr[$key]['ccdl'] =(int)$drrr->ccdl;
+                    $fr[$key]['ibbaj'] =(int)$drrr->biblico;
                 }
             }
+        }*/
+
+
+        foreach($ReportesArray as $reporte ){
+            $ReportesByCodigo[$reporte->codigo] = $reporte;
         }
 
-        foreach($reportes as $cg ){
-            $fixedReportes[$cg->codigo_grupo] = $cg;
+        foreach($sectores as $sector ){
+            $sectoresByCode[$sector['codigo_sector']] = $sector;
         }
 
-        return view('reportes.reporte', ["reporte"=>$reporteArray, 'sector'=> $sector, 'wReportes' => $fixedReportes, 'fr' =>$fr]);
+
+
+
+        return view('reportes.reporte', ["grupos"=>$grupos, 'sectores'=> $sectoresByCode, 'reportes' => $ReportesByCodigo, 'agrupacion'=>$cat]);
     }
 
 
@@ -233,6 +266,15 @@ YEARWEEK(fecha) as semana
         }
 
         //print_r($statsByMonth);
+
+
+    }
+
+    public function selectDate(){
+
+
+
+        return view('reportes.date');
 
 
     }

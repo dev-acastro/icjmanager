@@ -29,7 +29,7 @@ Route::post('reporte/login', [ReporteController::class, 'login'])->name('reporte
 
 Route::get('reporte/create/{id}', [ReporteController::class, 'create'])->name('reporteCreate');
 
-Route::get('/reporteSemanal', [\App\Http\Controllers\Front\ReporteriaController::class, 'reporteSemanal']);
+Route::get('/reporteSemanal', [\App\Http\Controllers\Front\ReporteriaController::class, 'reporteSemanal'])->name('reporteSemanal');
 
 Route::get('/chart', [\App\Http\Controllers\Front\ReporteriaController::class, 'chart']);
 
@@ -38,4 +38,6 @@ Route::get('/print', [\App\Http\Controllers\Front\ReporteriaController::class, '
 Route::get('/charts', [\App\Http\Controllers\Front\ChartsController::class, 'index'])->name("charts");
 
 //Route::get('/fullreport', [\App\Http\Controllers\Front\ReporteriaController::class, 'fullReport'])->name("fullReport");
+
+Route::get('/selectDate', [\App\Http\Controllers\Front\ReporteriaController::class, 'selectDate']);
 

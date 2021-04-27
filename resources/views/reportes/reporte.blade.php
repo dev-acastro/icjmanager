@@ -6,23 +6,16 @@
 
 @section('content')
 
-
+@if($agrupacion == "sector")
 
     <div  class="container">
         <div style="background-color: #eceff1; padding: 20px; page-break-after: always;">
-        <h1>Reporte por Sector   </h1>
+        <h1>Reporte por {{$agrupacion}}   </h1>
 
 
-            <a class="btn btn-primary" data-toggle="collapse" href="#reporteSector" role="button" aria-expanded="false" aria-controls="reporteSector">
-                Collapse
-            </a>
 
-            <div id="reporteSector" class="collapse">
-                <p>Pruebas de Data </p>
-                <p>Pruebas de Data </p>
-            </div>
 
-@foreach($reporte as $x => $zona)
+@foreach($grupos as $ZonaKey => $zona)
                <table  id="" class="table table-striped table-bordered " style=" margin-bottom: 100px">
                    <thead>
                    <tr>
@@ -32,51 +25,52 @@
                        <th>Niños</th>
                        <th>Inconversos</th>
                        <th>Conversiones</th>
+                       <th>Domingo</th>
                        <th>IBBAJ</th>
                        <th>CCDL</th>
+
                    </tr>
                    </thead>
                    <tbody>
 
    <tr>
         <th colspan="8">
-       <div style="width: 100%; background-color: #0B90C4; height: 30px; text-align: center; margin: 10px auto; color:white;">{{$x}}</div>
+       <div style="width: 100%; background-color: #0B90C4; height: 30px; text-align: center; margin: 10px auto; color:white;">{{$ZonaKey}}</div>
         </th>
    </tr>
-    @foreach($zona as $y => $distrito)
+    @foreach($zona as $DistritoKey => $distrito)
         <tr>
             <th colspan="8">
-                <div style="width: 100%; background-color: #00bb00; height: 30px; text-align: center; margin: 10px auto; color:white;">{{$y}}</div>
+                <div style="width: 100%; background-color: #00bb00; height: 30px; text-align: center; margin: 10px auto; color:white;">{{$DistritoKey}}</div>
             </th>
         </tr>
 
-            @foreach($distrito as $z => $area)
+            @foreach($distrito as $AreaKey => $area)
                 <tr>
                     <th colspan="8">
-                        <div style="width: 100%; background-color: #2f016b; height: 30px; text-align: center; margin: 10px auto; color:white;">{{$z}}</div>
+                        <div style="width: 100%; background-color: #2f016b; height: 30px; text-align: center; margin: 10px auto; color:white;">{{$AreaKey}}</div>
                     </th>
                 </tr>
 
-                @foreach($area as $a => $sectores)
+                @foreach($area as $SectorKey => $sectores)
 
 
-                    <tr style="{{isset($fr[$x.$y.$z.$a])? '' : 'background-color:#ff6f60' }}">
-                        @foreach($sector as $sectorIndividual)
-
-                                    @if(array_search($x.$y.$z.$a, $sectorIndividual) == "codigo_sector")
-                                <td>  {{$sectorIndividual['codigo_sector']}}</td>
-                                <td>  {{$sectorIndividual['supervisor']}}</td>
-                                    @endif
-                        @endforeach
+                    <tr style="{{isset($reportes[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey])? '' : 'background-color:#ff6f60' }}">
 
 
-                                @if(isset($fr[$x.$y.$z.$a]))
-                                <td> {{$fr[$x.$y.$z.$a]['adultos']}} </td>
-                                <td>{{$fr[$x.$y.$z.$a]['niños']}}</td>
-                                <td>{{$fr[$x.$y.$z.$a]['inconversos']}}</td>
-                                <td>{{$fr[$x.$y.$z.$a]['conversiones']}}</td>
-                                <td>{{$fr[$x.$y.$z.$a]['ccdl']}}</td>
-                                <td>{{$fr[$x.$y.$z.$a]['ibbaj']}}</td>
+
+                                <td>  {{$sectores[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey]['codigo_sector']}}</td>
+                                <td>  {{$sectores[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey]['supervisor']}}</td>
+
+
+
+                                @if(isset($reportes[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey]))
+                                <td> {{$reportes[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey]['adultos']}} </td>
+                                <td>{{$reportes[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey]['niños']}}</td>
+                                <td>{{$reportes[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey]['inconversos']}}</td>
+                                <td>{{$reportes[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey]['conversiones']}}</td>
+                                <td>{{$reportes[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey]['ccdl']}}</td>
+                                <td>{{$reportes[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey]['ibbaj']}}</td>
                                 @else
                                 <td> {{"--"}}</td>
                                 <td> {{"--"}}</td>
@@ -97,9 +91,10 @@
     @endforeach
 
         </div>
+        @endif
 
 
-       <div style="background-color: #eceff1; padding: 20px;">
+       {{--<div style="background-color: #eceff1; padding: 20px;">
            <h1>Reporte por Grupo </h1>
 
 
@@ -184,7 +179,7 @@
 
 
                @endforeach
-       </div>
+       </div>--}}
    </div>
 
   {{--  <div style="height: 60px; width: 100%; background-color: red; position: fixed; bottom: 0;">
