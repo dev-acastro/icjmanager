@@ -65,10 +65,12 @@
 
                     <tr style="{{isset($reportes[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey])? '' : 'background-color:#ff6f60' }}">
 
+
+                                @isset($sectores[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey])
                                 <td>  {{$sectores[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey]['codigo_sector']}}</td>
                                 <td>  {{$sectores[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey]['supervisor']}}</td>
 
-
+                        @endisset
 
                                 @if(isset($reportes[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey]))
                                 <td> {{$reportes[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey]['adultos']}} </td>
