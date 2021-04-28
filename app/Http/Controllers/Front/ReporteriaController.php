@@ -34,12 +34,12 @@ class ReporteriaController extends Controller
 
 
         if($cat == "grupo"){
-            $reportes = DB::table('reportes')->selectRaw('SUM(asistencia_adultos) as adultos, SUM(asistencia_niños) as niños, SUM(invitados_inconversos) as inconversos, SUM(conversiones) as conversiones, SUM(integrados_biblico) as biblico, SUM(integrados_ccdl) as ccdl, SUM(asistencia_domingos) as domingos, codigo_grupo as codigo')
+            $reportes = DB::table('reportes')->selectRaw('SUM(asistencia_adultos) as adultos, SUM(asistencia_niños) as niños, SUM(invitados_inconversos) as inconversos, SUM(conversiones) as conversiones, SUM(integrados_biblico) as biblico, SUM(integrados_ccdl) as ccdl, SUM(asistencia_domingos) as domingo, codigo_grupo as codigo')
                 ->whereBetween('fecha', [$from, $to])
                 ->groupBy('codigo')
                 ->get();
         }elseif ($cat == "sector"){
-            $reportes = DB::table('reportes')->selectRaw('SUM(asistencia_adultos) as adultos, SUM(asistencia_niños) as niños, SUM(invitados_inconversos) as inconversos, SUM(conversiones) as conversiones, SUM(integrados_biblico) as biblico, SUM(integrados_ccdl) as ccdl, SUM(asistencia_domingos) as domingos, SUBSTRING(codigo_grupo, 1,8) as codigo')
+            $reportes = DB::table('reportes')->selectRaw('SUM(asistencia_adultos) as adultos, SUM(asistencia_niños) as niños, SUM(invitados_inconversos) as inconversos, SUM(conversiones) as conversiones, SUM(integrados_biblico) as biblico, SUM(integrados_ccdl) as ccdl, SUM(asistencia_domingos) as domingo, SUBSTRING(codigo_grupo, 1,8) as codigo')
                 ->whereBetween('fecha', [$from, $to])
                 ->groupBy('codigo')
                 ->get();
