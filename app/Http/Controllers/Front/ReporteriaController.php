@@ -23,7 +23,14 @@ class ReporteriaController extends Controller
         $from = $_GET['start'];
         $to = $_GET['end'];
         $cat = $_GET['cat'];
+
+        $grupos = (new \App\Classes\GrupoArray)->getarray();
+
         $reportes ="";
+        $sectores = DB::table('sectors')->get();
+        $SectoresByCodigo= array();
+        $ReportesByCodigo = array();
+
 
 
         if($cat == "grupo"){
@@ -38,59 +45,15 @@ class ReporteriaController extends Controller
                 ->get();
         }
 
-        $ReportesArray = json_decode($reportes);
-
-
-
-        $grupos = (new \App\Classes\GrupoArray)->getarray();
-        $sectores= Sector::all()->toArray();
-        $sectoresByCode= array();
-        //$allReports = Reporte::all()->toArray();
-        //$dr = [];
-
-
-        //$fr = array();
-        $ReportesByCodigo = array();
-        //$byWeekReports = array();
-
-
-        /*foreach ($reportes as  $wr){
-         $dr[substr($wr->codigo_grupo, 0, 8)][] = $wr;
-        }*/
-        /*foreach ($dr as $drr){
-            foreach ($drr as $drrr){
-                $key = substr($drrr->codigo_grupo, 0,8);
-                if(isset($fr[$key])){
-                    $fr[$key]['adultos'] +=$drrr->adultos;
-                    $fr[$key]['niños'] +=$drrr->niños;
-                    $fr[$key]['inconversos'] +=$drrr->inconversos;
-                    $fr[$key]['conversiones'] +=$drrr->conversiones;
-                    $fr[$key]['ccdl'] +=$drrr->ccdl;
-                    $fr[$key]['ibbaj'] +=$drrr->biblico;
-                }elseif(!isset($fr[$key])){
-                    $fr[$key]['adultos'] =(int)$drrr->adultos;
-                    $fr[$key]['niños'] =(int)$drrr->niños;
-                    $fr[$key]['inconversos'] =(int)$drrr->inconversos;
-                    $fr[$key]['conversiones'] =(int)$drrr->conversiones;
-                    $fr[$key]['ccdl'] =(int)$drrr->ccdl;
-                    $fr[$key]['ibbaj'] =(int)$drrr->biblico;
-                }
-            }
-        }*/
-
-
-        foreach($ReportesArray as $reporte ){
-            $ReportesByCodigo[$reporte->codigo] = $reporte;
+        foreach($reportes as $reporte ){
+            $ReportesByCodigo[$reporte->codigo] = (array)$reporte;
         }
 
         foreach($sectores as $sector ){
-            $sectoresByCode[$sector['codigo_sector']] = $sector;
+            $SectoresByCodigo[$sector->codigo_sector] = (array)$sector;
         }
 
-
-
-
-        return view('reportes.reporte', ["grupos"=>$grupos, 'sectores'=> $sectoresByCode, 'reportes' => $ReportesByCodigo, 'agrupacion'=>$cat]);
+        return view('reportes.reporte', ["grupos"=>$grupos, 'sectores'=> $SectoresByCodigo, 'reportes' => $ReportesByCodigo, 'agrupacion'=>$cat]);
     }
 
 
@@ -133,52 +96,7 @@ class ReporteriaController extends Controller
 
     }
 
-    public function print(){
-        set_time_limit(300);
 
-        $reporte = new GrupoArray();
-        $reporteArray = $reporte->getArray();
-        $sector = Sector::all()->toArray();
-        $dr = [];
-        $reportes = DB::table('reportes')->whereRaw("WEEKOFYEAR(FECHA) = WEEKOFYEAR(NOW())-1")->get();
-        $fr = array();
-        $fixedReportes = array();
-
-        foreach ($reportes as  $wr){
-            $dr[substr($wr->codigo_grupo, 0, 8)][] = $wr;
-        }
-        foreach ($dr as $drr){
-            foreach ($drr as $drrr){
-                $key = substr($drrr->codigo_grupo, 0,8);
-                if(isset($fr[$key])){
-                    $fr[$key]['adultos'] +=$drrr->asistencia_adultos;
-                    $fr[$key]['niños'] +=$drrr->asistencia_niños;
-                    $fr[$key]['inconversos'] +=$drrr->invitados_inconversos;
-                    $fr[$key]['conversiones'] +=$drrr->conversiones;
-                    $fr[$key]['ccdl'] +=$drrr->integrados_ccdl;
-                    $fr[$key]['ibbaj'] +=$drrr->integrados_biblico;
-                }else{
-                    $fr[$key]['adultos'] =(int)$drrr->asistencia_adultos;
-                    $fr[$key]['niños'] =(int)$drrr->asistencia_niños;
-                    $fr[$key]['inconversos'] =(int)$drrr->invitados_inconversos;
-                    $fr[$key]['conversiones'] =(int)$drrr->conversiones;
-                    $fr[$key]['ccdl'] =(int)$drrr->integrados_ccdl;
-                    $fr[$key]['ibbaj'] =(int)$drrr->integrados_biblico;
-                }
-            }
-        }
-
-        foreach($reportes as $cg ){
-            $fixedReportes[$cg->codigo_grupo] = $cg;
-        }
-
-
-        $pdf = PDF::loadView('prints.semanal', ["reporte"=>$reporteArray, 'sector'=> $sector, 'wReportes' => $fixedReportes, 'fr' =>$fr]);
-
-        $pdf->set_paper(DEFAULT_PDF_PAPER_SIZE, 'portrait');
-        return $pdf->stream('reporteI.pdf');
-
-    }
 
     public function fullReport(){
 
