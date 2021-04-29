@@ -23,6 +23,8 @@ class ReporteriaController extends Controller
         $from = $_GET['start'];
         $to = $_GET['end'];
         $cat = $_GET['cat'];
+        $code = $_GET['code'];
+        $codeCount = strlen($code);
 
         $grupos = (new \App\Classes\GrupoArray)->getarray();
 
@@ -40,6 +42,12 @@ class ReporteriaController extends Controller
                 ->get();
         }elseif ($cat == "sector"){
             $reportes = DB::table('reportes')->selectRaw('SUM(asistencia_adultos) as adultos, SUM(asistencia_niños) as niños, SUM(invitados_inconversos) as inconversos, SUM(conversiones) as conversiones, SUM(integrados_biblico) as biblico, SUM(integrados_ccdl) as ccdl, SUM(asistencia_domingos) as domingo, SUBSTRING(codigo_grupo, 1,8) as codigo')
+                ->whereBetween('fecha', [$from, $to])
+                ->groupBy('codigo')
+                ->get();
+        }elseif ($cat == "code"){
+            $reportes = DB::table('reportes')->selectRaw('SUM(asistencia_adultos) as adultos, SUM(asistencia_niños) as niños, SUM(invitados_inconversos) as inconversos, SUM(conversiones) as conversiones, SUM(integrados_biblico) as biblico, SUM(integrados_ccdl) as ccdl, SUM(asistencia_domingos) as domingos, SUBSTRING(codigo_grupo, 1,'. $codeCount.') as codigo')
+                ->where("codigo_grupo", "like", $code. "%")
                 ->whereBetween('fecha', [$from, $to])
                 ->groupBy('codigo')
                 ->get();
