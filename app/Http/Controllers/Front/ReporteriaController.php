@@ -23,8 +23,8 @@ class ReporteriaController extends Controller
         $from = $_GET['start'];
         $to = $_GET['end'];
         $cat = $_GET['cat'];
-        $code = $_GET['code'];
-        $codeCount = strlen($code);
+        //$code = $_GET['code'];
+        //$codeCount = strlen($code);
 
         $grupos = (new \App\Classes\GrupoArray)->getarray();
 

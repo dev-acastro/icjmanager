@@ -14,7 +14,7 @@
 
 
     <div  class="container">
-        <div style="background-color: #eceff1; padding: 20px; page-break-after: always;">
+        <div style="background-color: #eceff1; padding: 20px; page-break-after: always;" class="col-md-6">
         <h1>Reporte por {{$agrupacion}}   </h1>
 
 
@@ -117,7 +117,7 @@
                                 <td>{{$reportes[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey.$KeyGrupo]['niños']}}</td>
                                 <td>{{$reportes[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey.$KeyGrupo]['inconversos']}}</td>
                                 <td>{{$reportes[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey.$KeyGrupo]['conversiones']}}</td>
-                                <td>{{$reportes[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey.$KeyGrupo]['domingos']}}</td>
+                                <td>{{$reportes[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey.$KeyGrupo]['domingo']}}</td>
                                 <td>{{$reportes[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey.$KeyGrupo]['ccdl']}}</td>
                                 <td>{{$reportes[$ZonaKey.$DistritoKey.$AreaKey.$SectorKey.$KeyGrupo]['biblico']}}</td>
 
