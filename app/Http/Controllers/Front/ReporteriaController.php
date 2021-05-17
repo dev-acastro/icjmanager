@@ -26,7 +26,7 @@ class ReporteriaController extends Controller
         $codigo =(isset($_GET['codigo']))? $_GET['codigo'] : "";
         $codeCount = strlen($codigo);
 
-        return $codeCount;
+
 
         $grupos = (new \App\Classes\GrupoArray)->getarray();
 

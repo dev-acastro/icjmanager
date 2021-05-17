@@ -39,5 +39,5 @@ Route::get('/charts', [\App\Http\Controllers\Front\ChartsController::class, 'ind
 
 //Route::get('/fullreport', [\App\Http\Controllers\Front\ReporteriaController::class, 'fullReport'])->name("fullReport");
 
-Route::get('/selectDate', [\App\Http\Controllers\Front\ReporteriaController::class, 'selectDate']);
+Route::get('/reportes', [\App\Http\Controllers\Front\ReporteriaController::class, 'selectDate']);
 

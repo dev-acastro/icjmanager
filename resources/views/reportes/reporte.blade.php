@@ -14,7 +14,7 @@
 
 
     <div  class="container">
-        <div style="background-color: #eceff1; padding: 20px; page-break-after: always;" class="col-md-6">
+        <div style="background-color: #eceff1; padding: 20px; page-break-after: always;" class="col-md-12">
         <h1>Reporte por {{$agrupacion}}   </h1>
 
 

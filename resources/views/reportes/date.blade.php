@@ -74,7 +74,7 @@
 
                             {{--                                Buscar por Codigo--}}
                             <div class="form-group row">
-                                <label for="codigo" class="col-md-4 col-form-label text-md-right">Buscar por Codigo</label>
+                                <label for="codigo" class="col-md-4 col-form-label text-md-right">Codigo</label>
 
                                 <div class="col-md-6">
                                     <input id="codigo" type="input" class="form-control @error('codigo') is-invalid @enderror" name="codigo" value="{{ old('codigo') }}" required  autofocus>
@@ -118,7 +118,7 @@
 
 
 
-                                <div class="form-check col-md-2">
+                                {{--<div class="form-check col-md-2">
                                     <input id="grupo" type="radio" class="form-check-input @error('cat') is-invalid @enderror" name="cat" value="grupo{{ old('grupo') }}" required  autofocus>
 
                                     @error('cat')
@@ -130,7 +130,7 @@
                                 </div>
 
                             </div>
-
+--}}
 
 
                             <div class="form-group row mb-0">
